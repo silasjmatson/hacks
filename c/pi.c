@@ -14,11 +14,11 @@ float float_rand(void) {
 }
 
 
-float calc_pi(unsigned long digits) {
+float calc_pi(unsigned long points) {
   unsigned long int z = 0, inside = 0;
   float x, y, rootxy, calculated_pi;
 
-  while(z < digits) {
+  while(z < points) {
     x = float_rand();
     y = float_rand();
 
@@ -28,7 +28,7 @@ float calc_pi(unsigned long digits) {
     z++;
   }
 
-  calculated_pi = 4 * (float)inside / digits;
+  calculated_pi = 4 * (float)inside / points;
   return calculated_pi;
 }
 
