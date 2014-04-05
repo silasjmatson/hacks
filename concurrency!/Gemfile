@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+ruby "2.1.0", engine: :rbx, engine_version: "2.0"
+
+gem 'lattice',    github: 'celluloid/lattice'
+gem 'celluloid'
+gem 'celluloid-io'
+gem 'webmachine', github: 'seancribbs/webmachine-ruby'
+gem 'webmachine-test'
