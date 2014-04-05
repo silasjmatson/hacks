@@ -13,7 +13,6 @@ float float_rand(void) {
   return rand() / (float)RAND_MAX;
 }
 
-
 float calc_pi(unsigned long points) {
   unsigned long int z = 0, inside = 0;
   float x, y, rootxy, calculated_pi;
