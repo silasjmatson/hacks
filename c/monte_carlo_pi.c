@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
   printf("Enter number of points to check> ");
   getline(&str, &size, stdin);
   sscanf(str, "%lu", &n);
-  
+
   if(n == 0) {
     fprintf(stderr, "Please Enter a number greater than zero.\n");
     exit(EXIT_FAILURE);
