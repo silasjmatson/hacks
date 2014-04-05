@@ -30,20 +30,18 @@ void add_history(char* unused) {}
 
 int main(int argc, char** argv) {
   mpc_parser_t* Number    = mpc_new("number");
-  mpc_parser_t* Decimal   = mpc_new("decimal");
   mpc_parser_t* Operator  = mpc_new("operator");
   mpc_parser_t* Expr      = mpc_new("expr");
   mpc_parser_t* Lispy     = mpc_new("lispy");
 
   mpca_lang(MPC_LANG_DEFAULT,
     "                                                                     \
-      number    : /-?[0-9]+/ ;                                            \
-      decimal   : // <number>+ /[.]+[0-9]+/ ;                             \
+      number    : /-?[0-9]+([.][0-9?])?/ ;                                \
       operator  : '+' | '-' | '*' | '/' | '%' ;                           \
-      expr      : <number> | <decimal> | '(' <operator> <expr>+ ')' ;     \
+      expr      : <number> | '(' <operator> <expr>+ ')' ;                 \
       lispy     : /^/ <operator> <expr>+ /$/ ;                            \
     ",
-    Number, Decimal, Operator, Expr, Lispy
+    Number, Operator, Expr, Lispy
   );
 
 
@@ -66,6 +64,6 @@ int main(int argc, char** argv) {
     }
   }
 
-  mpc_cleanup(5, Number, Decimal, Operator, Expr, Lispy);
+  mpc_cleanup(4, Number, Operator, Expr, Lispy);
   return 0;
 }
