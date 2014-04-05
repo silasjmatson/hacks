@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
   sscanf(str, "%lu", &n);
   
   if(n == 0) {
-    printf("Please Enter a number greater than zero.\n");
+    fprintf(stderr, "Please Enter a number greater than zero.\n");
     exit(EXIT_FAILURE);
   }
 
