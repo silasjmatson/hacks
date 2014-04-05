@@ -10,7 +10,7 @@ void initrand(void) {
 }
 
 float float_rand(void) {
-  return rand()/(float)RAND_MAX;
+  return rand() / (float)RAND_MAX;
 }
 
 
@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
   float calculated_pi;
   calculated_pi = calc_pi(n);
 
-  printf("PI calculated to %lu digits is: %f\n", n, calculated_pi);
+  printf("PI calculated using the Monte Carlo method with %lu points: %f\n", n, calculated_pi);
 
   return 0;
 }
