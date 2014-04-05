@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
   size_t size = MAX_STR;
   unsigned long int n = 0;
   char *str;
+  float calculated_pi;
 
   str = (char *)malloc(size);
   if(!str) {
@@ -48,7 +49,6 @@ int main(int argc, char** argv) {
   sscanf(str, "%lu", &n);
 
   initrand();
-  float calculated_pi;
   calculated_pi = calc_pi(n);
 
   printf("PI calculated using the Monte Carlo method with %lu points: %f\n", n, calculated_pi);
