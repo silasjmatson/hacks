@@ -27,6 +27,37 @@ void add_history(char* unused) {}
 // Lexer Defining & Parsing
 #include "mpc.h"
 
+long eval_op(long x, char* op, long y) {
+  if (strcmp(op, "+") == 0) { return x + y; }
+  if (strcmp(op, "-") == 0) { return x - y; }
+  if (strcmp(op, "*") == 0) { return x * y; }
+  if (strcmp(op, "/") == 0) { return x / y; }
+
+  return 0;
+}
+
+// Evaluation
+long eval(mpc_ast_t* tree) {
+  // If tag is a number, just convert to C type and return
+  if (strstr(tree->tag, "number")) {
+    return atoi(tree->contents);
+  }
+
+  // The first child is '(', so second is the operator
+  char* op = tree->children[1]->contents;
+
+  long x = eval(tree->children[2]);
+
+  // Recursively eval the rest;
+  int i = 3;
+  while (strstr(tree->children[i]->tag, "expr")) {
+    x = eval_op(x, op, eval(tree->children[i]));
+    i++;
+  }
+
+  return x;
+}
+
 
 int main(int argc, char** argv) {
   mpc_parser_t* Number    = mpc_new("number");
@@ -36,7 +67,7 @@ int main(int argc, char** argv) {
 
   mpca_lang(MPC_LANG_DEFAULT,
     "                                                                     \
-      number    : /-?[0-9]+([.][0-9?])?/ ;                                \
+      number    : /-?[0-9]+([.][0-9]*)?/ ;                                \
       operator  : '+' | '-' | '*' | '/' | '%' ;                           \
       expr      : <number> | '(' <operator> <expr>+ ')' ;                 \
       lispy     : /^/ <operator> <expr>+ /$/ ;                            \
@@ -55,7 +86,8 @@ int main(int argc, char** argv) {
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Lispy, &r)) {
       /* Successfully parsed the input as 'Lispy' */
-      mpc_ast_print(r.output);
+      long result = eval(r.output);
+      printf("%li\n", result);
       mpc_ast_delete(r.output);
     } else {
       /* Errored */
